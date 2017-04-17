@@ -17,12 +17,12 @@ main =
 type alias Model =
   { chatMessage : String
   , userMessage : String
-  --, messages : List String
+  , messages : List String
   }
 
 init : (Model, Cmd Msg)
 init =
-  ( Model "" ""-- [""]
+  ( Model "" "" [""]
   , Cmd.none
   )
 
@@ -37,7 +37,7 @@ type Msg
   = PostChatMessage
   | UpdateUserMessage String
   | NewChatMessage String
---  | Messages String
+  | AllMessages String
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
@@ -54,11 +54,8 @@ update msg model =
     NewChatMessage message ->
         { model | chatMessage = message } ! []
 
---    Messages message ->
---        let
---          message = model.chatMessage
---        in
---          {model | message = messages } ! []
+    AllMessages messages ->
+        {model | messages = model.message :: model.messages }
 
 -- VIEW -----------------------------------------------------------------
 view : Model -> Html Msg
@@ -71,7 +68,7 @@ view model =
             ] []
     , button [ onClick PostChatMessage ] [ text "Submit" ]
     , div [] [ text model.chatMessage ]
-    --, div [] (List.map viewMessage model.messages) -- (List.reverse)
+    --, div [] (List.map viewMessage model.messages)
   ]
 
 
