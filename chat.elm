@@ -68,7 +68,7 @@ view model =
             ] []
     , button [ onClick PostChatMessage ] [ text "Submit" ]
     , div [] [ text model.chatMessage ]
-    --, div [] (List.map viewMessage model.messages)
+    , div [] (List.map viewMessage model.messages)
   ]
 
 
